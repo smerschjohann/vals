@@ -104,6 +104,13 @@ func TestExpandRegexpMatchInString(t *testing.T) {
 			expected: "vault-srv-/foo/bar\n",
 		},
 		{
+			name:     "it should not match closing quotes when using query params",
+			regex:    DefaultRefRegexp,
+			only:     []string{"ref", "secretref"},
+			input:    "\"ref+awsssm://srv/foo/bar?mode=singleparam\"",
+			expected: "\"awsssm-srv-/foo/bar\"",
+		},
+		{
 			name:     "it should match greedily upto a space when using query params",
 			regex:    DefaultRefRegexp,
 			only:     []string{"ref", "secretref"},
